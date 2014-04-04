@@ -1,4 +1,4 @@
-  Moodle 2.3 plugin: EasyOChem Structure Display (EasyOStructure) question type
+Moodle 2.3 plugin: EasyOChem Structure Display (EasyOStructure) question type
 
 IMPORTANT:
 
@@ -44,5 +44,4 @@ representations for your chemistry content in MarvinSketch; line bond, normal
 and displayed as question data.  You can ask questions such as "Are the two chlorine groups 
 in the following structure cis or trans?"  or "What is the name of the following 
 reaction?" or Does this structure have R(E) or S(Z) stereochemistry?  
-
 

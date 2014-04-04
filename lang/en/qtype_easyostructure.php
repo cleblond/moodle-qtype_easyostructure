@@ -19,20 +19,15 @@
  *
  * @package    qtype
  * @subpackage easyostructure
- * @copyright  1999 onwards Martin Dougiamas  {@link http://moodle.com}
+ * @copyright  2014 onwards Carl LeBlond
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-
 
 $string['displaymodelinebond'] = 'Line Bond';
 $string['displaymodenormal'] = 'Normal (Show C and H)';
 $string['displaymode3d'] = '3D Ball and stick';
 $string['displaymodedescrip'] = 'Choose a structural representation!';
-
-
-
-
+$string['insertfromeditordesc'] = 'Build your structure above and then click the <b>"Insert from editor"</b> button';
 $string['addmoreanswerblanks'] = 'Blanks for {no} More Answers';
 $string['answermustbegiven'] = 'You must enter an answer if there is a grade or feedback.';
 $string['answerno'] = 'Answer {$a}';
@@ -50,8 +45,8 @@ $string['filloutoneanswer'] = '<b><ul>
 <li>Use the Marvinsketch editor to create a structure as content for this question!</li>
 <li>The structure will be displayed in MarvinView!</li>
 <li>Choose either "Line Bond",  "Normal" or "3D Ball and Stick" for the display option.</li>
-<li>Click the "Insert from editor" button to insert the chemaxon xml file/code into the textbox.</li>
-<li>For 3D structures you should "Clean 3D" before clicking the "Insert from editor" button.</li>
+<li>Click the "Insert from editor" button to insert the chemaxon xml file/code into the textbox below.</li>
+<li>For 3D structures you should use the "Clean 3D" function under the "Structure" menu.</li>
 </ul></b>';
 $string['filloutanswers'] = 'Place your answers to the question below.';
 $string['insertfromeditor'] = 'Insert from editor';

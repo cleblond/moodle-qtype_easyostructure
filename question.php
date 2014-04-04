@@ -19,7 +19,7 @@
  *
  * @package    qtype
  * @subpackage easyostructure
- * @copyright  2011 The Open University
+ * @copyright  2014 onwards Carl LeBlond
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -27,28 +27,13 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/question/type/shortanswer/question.php');
-
-
-/**
- * Represents a easyostructure question.
- *
- * @copyright  1999 onwards Martin Dougiamas {@link http://moodle.com}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
 class qtype_easyostructure_question extends qtype_shortanswer_question {
-	// all comparisons in easyostructure are case sensitive
-	public function compare_response_with_answer(array $response, question_answer $answer) {
-
-
+    // All comparisons in easyostructure are case sensitive!
+    public function compare_response_with_answer(array $response, question_answer $answer) {
         return self::compare_string_with_wildcard($response['answer'], $answer->answer, true);
-//        return self::compare_string_with_wildcard($arrowsusrall, $arrowsansall, false);
-
-
-
     }
-	
-	public function get_expected_data() {
 
+    public function get_expected_data() {
         return array('answer' => PARAM_RAW, 'easyostructure' => PARAM_RAW, 'mol' => PARAM_RAW);
     }
 }

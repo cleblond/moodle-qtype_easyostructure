@@ -5,107 +5,30 @@
 M.qtype_easyostructure={
     insert_easyostructure_applet : function(Y, toreplaceid, appletid, name, topnode,
                                                                     appleturl, feedback, readonly, appletoptions, displaymode, stripped_answer_id){
-        var javaparams = ['mrv', Y.one(topnode+' input.mol').get('value')];   ///CRL changed smiles to mol
-//        var javaparams = new Array();
+        var javaparams = ['mrv', Y.one(topnode+' input.mol').get('value')];
         var easyostructureoptions = new Array();
-
-
-	
-
-
 
         if (appletoptions) {
             easyostructureoptions[easyostructureoptions.length] = appletoptions;
-
-
-
         }
         if (readonly) {
-//            easyostructureoptions[easyostructureoptions.length] = "false";  ///crl changed depict to true
-//	     javaparams.menubar = "false";	    
-//            easyostructureoptions[easyostructureoptions.length + 1] = "false";  ///crl changed depict to true
-//	    easyostructureoptions[easyostructureoptions.length] = Y.one(topnode+' input.mol').get('value');  ///crl changed depict to true
-	    easyostructureoptions[easyostructureoptions.length] = Y.one(topnode+' input.mol').get('value');  ///crl 
-
-
-
-
+	easyostructureoptions[easyostructureoptions.length] = Y.one(topnode+' input.mol').get('value');
         }
         if (easyostructureoptions.length !== 0) {
-//            javaparams[javaparams.length] = "viewonly";   ///crl changes options to viewonly
-//            javaparams[javaparams.length+1] = "menubar";   ///crl changes options to viewonly 
-  	    javaparams[javaparams.length] = "mrv";  ///added by crl
-
+  	    javaparams[javaparams.length] = "mrv";
             javaparams[javaparams.length] = easyostructureoptions.join(',');
         }
         if (!this.show_java(toreplaceid, appletid, name, appleturl,
                                                             420, 360, 'chemaxon.marvin.applet.JMViewLaunch', javaparams, displaymode, stripped_answer_id)) {
 
-
-
-            this.show_error(Y, topnode);
-
+        this.show_error(Y, topnode);
 
         } else {
-//		window.alert('Message goes here');
-//		           var s = 'CC';
-//		var s = document.getElementById(stripped_answer_id).value;
-//		s = local2unix(s);
-//		document.Msketch.setMol(s);
-//worked		document.MSketch.setMol(s, 'mrv');
-//		this.find_java_applet(name).setMol(s, 'mrv');
-
 		var inputdiv = Y.one(topnode);
             	inputdiv.ancestor('form').on('submit', function (){
-
-
-/*                Y.one(topnode+' input.answer').set('value', this.find_java_applet(name).getMol("mol"));
-
-		var strvalue = "" + this.find_java_applet(name).getMol("mol");
-		var v = navigator.appVersion;
-		if(v.indexOf("Win") > 0) {
-			strvalue = strvalue.split("\r\n").join("\n"); // To avoid "\r\r\n"
-		//return strvalue.split("\n").join("\r\n");
-		} else { // Unix
-		//	return strvalue;
-		}
-*/
-
-
-//                 Y.one(topnode+' input.mol').set('value', strvalue);
-
-
-//		var s = this.find_java_applet(name).getMol("mol");
-//		s = unix2local(s); // Convert "\n" to local line separator
-//                Y.one(topnode+' input.easyostructure').set('value', s);
-//                Y.one(topnode+' input.mol').set('value', s)
             }, this);
         }
     },
-
-
-
-/*
-local2unix : function (s) {
-    var strvalue = "" + s;
-    var v = navigator.appVersion;
-    if(v.indexOf("Win") > 0) {
-        return strvalue.split("\r").join("");
-    } else if(v.indexOf("Mac") > 0) { // Macintosh
-        return strvalue.split("\r").join("\n");
-    } else { // Unix
-        return strvalue;
-    }
-}
-*/
-
-
-
-
-
-
-
-
 
     show_error : function (Y, topnode) {
         var errormessage = '<span class ="javawarning">'
@@ -117,7 +40,6 @@ local2unix : function (s) {
      * Gets around problem in ie6 using name
      */
     find_java_applet : function (appletname) {
-//	alert(appletname);
         for (appletno in document.applets) {
             if (document.applets[appletno].name == appletname) {
                 return document.applets[appletno];
@@ -151,16 +73,12 @@ local2unix : function (s) {
         newApplet.tabIndex = -1; // Not directly tabbable
         newApplet.mayScript = true;     
 	newApplet.id = appletid;
-//	newApplet.setAttribute('codebase','../../../easyostructure');
 	newApplet.setAttribute('codebase','/marvin');
-
 
 	if (displaymode == '0'){
         newApplet.setAttribute('implicitH','hetero');
-
 	}
 	else if (displaymode=='1'){
-
 	newApplet.setAttribute('viewCarbonVisibility','on');
 	newApplet.setAttribute('implicitH','all');
 	newApplet.setAttribute('chargeWithCircle','true');
@@ -177,10 +95,7 @@ local2unix : function (s) {
 
 
 	}
-//	alert(document.getElementById(stripped_answer_id).value);
-//	newApplet.setAttribute('mol', document.getElementById(stripped_answer_id).value);
-        // In case applet supports the focushack system, we
-        // pass in its id as a parameter.
+
         javavars[javavars.length] = 'focushackid';
         javavars[javavars.length] = newApplet.id;
         for (var i=0;i<javavars.length;i+=2) {
@@ -189,11 +104,6 @@ local2unix : function (s) {
             param.value=javavars[i+1];
             newApplet.appendChild(param);
         }
-/*            param.name='viewonly';
-            param.value='false';
-	    param.name='menubar';
-            param.value='false';
-*/
 	    param.name='mol';
             param.value = document.getElementById(stripped_answer_id).value;
 

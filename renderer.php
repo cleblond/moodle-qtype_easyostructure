@@ -19,29 +19,21 @@
  *
  * @package    qtype
  * @subpackage easyostructure
- * @copyright  2009 The Open University
+ * @copyright  2014 onwards Carl LeBlond
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
 defined('MOODLE_INTERNAL') || die();
 
-
-/**
- * Generates the output for easyostructure questions.
- *
- * @copyright  2009 The Open University
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
 class qtype_easyostructure_renderer extends qtype_renderer {
-    public function formulation_and_controls(question_attempt $qa,
-            question_display_options $options) {
-		global $CFG, $PAGE;
-		
+    public function formulation_and_controls(question_attempt $qa, question_display_options $options) {
+        global $CFG, $PAGE;
+
         $question = $qa->get_question();
-	$currentanswer = $qa->get_last_qt_var('answer');
-	$inputname = $qa->get_qt_field_name('answer');
-	$inputattributes = array(
+        $currentanswer = $qa->get_last_qt_var('answer');
+        $inputname = $qa->get_qt_field_name('answer');
+        $inputattributes = array(
             'type' => 'text',
             'name' => $inputname,
             'value' => $currentanswer,
@@ -49,9 +41,9 @@ class qtype_easyostructure_renderer extends qtype_renderer {
             'size' => 80,
         );
 
-	$feedbackimg = '';
+        $feedbackimg = '';
 
-	if ($options->correctness) {
+        if ($options->correctness) {
             $answer = $question->get_matching_answer(array('answer' => $currentanswer));
             if ($answer) {
                 $fraction = $answer->fraction;
@@ -62,34 +54,27 @@ class qtype_easyostructure_renderer extends qtype_renderer {
             $feedbackimg = $this->feedback_image($fraction);
         }
 
-
-		
-		$questiontext = $question->format_questiontext($qa);
+        $questiontext = $question->format_questiontext($qa);
         $placeholder = false;
         if (preg_match('/_____+/', $questiontext, $matches)) {
             $placeholder = $matches[0];
         }
-	
+
         $toreplaceid = 'applet'.$qa->get_slot();
         $toreplace = html_writer::tag('span',
                                       get_string('enablejavaandjavascript', 'qtype_easyostructure'),
                                       array('id' => $toreplaceid));
-
-
-	$input = html_writer::empty_tag('input', $inputattributes) . $feedbackimg;
+        $input = html_writer::empty_tag('input', $inputattributes) . $feedbackimg;
 
         if ($placeholder) {
             $toreplace = html_writer::tag('span',
                                       get_string('enablejavaandjavascript', 'qtype_easyostructure'),
                                       array('class' => 'ablock'));
-
-	     $inputinplace = html_writer::tag('label', get_string('answer'),
-                    array('for' => $inputattributes['id'], 'class' => 'accesshide'));
+            $inputinplace = html_writer::tag('label', get_string('answer'),
+                array('for' => $inputattributes['id'], 'class' => 'accesshide'));
             $inputinplace .= $input;
             $questiontext = substr_replace($questiontext, $inputinplace,
-                    strpos($questiontext, $placeholder), strlen($placeholder));
-
-
+                strpos($questiontext, $placeholder), strlen($placeholder));
             $questiontext = substr_replace($questiontext,
                                             $toreplace,
                                             strpos($questiontext, $placeholder),
@@ -99,27 +84,10 @@ class qtype_easyostructure_renderer extends qtype_renderer {
 
         $result = html_writer::tag('div', $questiontext, array('class' => 'qtext'));
 
-//        $result .= html_writer::tag('input', $questiontext, array('class' => 'qtext'));
-
-/////crl
-//$result .= html_writer::tag('textarea', "every page here");
-
-
         if (!$placeholder) {
-//            $answerlabel = html_writer::tag('span', get_string('answer', 'qtype_easyostructure', ''), array('class' => 'answerlabel'));
-///added by crl this is input field for response
-		$result .= html_writer::tag('label', get_string('answer', 'qtype_easyostructure', html_writer::tag('span', $input, array('class' => 'answer'))), array('for' => $inputattributes['id']));
-
-
+            $result .= html_writer::tag('label', get_string('answer', 'qtype_easyostructure',
+            html_writer::tag('span', $input, array('class' => 'answer'))), array('for' => $inputattributes['id']));
             $result .= html_writer::tag('div', $toreplace, array('class' => 'ablock'));
-
-
-// 	    $result .= html_writer::start_tag('div', array('class' => 'ablock'));
-//            $result .= html_writer::tag('label', get_string('answer', 'qtype_shortanswer',
-//                    html_writer::tag('span', $input, array('class' => 'answer'))),
-//                    array('for' => $inputattributes['id']));
-//            $result .= html_writer::end_tag('div');
-
         }
 
         if ($qa->get_state() == question_state::$invalid) {
@@ -127,39 +95,20 @@ class qtype_easyostructure_renderer extends qtype_renderer {
             $result .= html_writer::nonempty_tag('div',
                                                 $question->get_validation_error($lastresponse),
                                                 array('class' => 'validationerror'));
- 
+        }
 
-       }
+        $question = $qa->get_question();
+        $answer = $question->get_matching_answer($question->get_correct_response());
 
-////crl add structure to page////// 
+        $structure = $question->structure;
+        $strippedanswerid = "stripped_answer".$qa->get_slot();
 
-//	if (!$options->readonly) {
-		$question = $qa->get_question();
-		$answer = $question->get_matching_answer($question->get_correct_response());
+        $result .= html_writer::tag('textarea', $structure,
+            array('id' => $strippedanswerid, 'style' => 'display:none;', 'name' => $strippedanswerid));
 
-
-//		$stripped_xml=$this->remove_xml_tags($answer->answer,'MEFlow');
-
-		$structure=$question->structure;
-		$stripped_answer_id="stripped_answer".$qa->get_slot();
-
-		$result .= html_writer::tag('textarea', $structure, array('id' => $stripped_answer_id, 'style' => 'display:none;', 'name' => $stripped_answer_id));
-//	}
-/////
-
-		
-		if ($options->readonly) {
-		    $currentanswer = $qa->get_last_qt_var('answer');
-
-//		echo "CA=$currentanswer";
-//	echo "HEREEEEE";
-		    
-//$result .= html_writer::tag('div', get_string('youranswer', 'qtype_easyostructure', s($qa->get_last_qt_var('answer'))), array('class' => 'qtext'));
-
-//$result .= html_writer::tag('textarea', "On Submit Finish page");
-
-
-		}
+        if ($options->readonly) {
+            $currentanswer = $qa->get_last_qt_var('answer');
+        }
 
         $result .= html_writer::tag('div',
                                     $this->hidden_fields($qa),
@@ -169,11 +118,6 @@ class qtype_easyostructure_renderer extends qtype_renderer {
 
         return $result;
     }
-
-
-
-
-
 
 
     protected function require_js($toreplaceid, question_attempt $qa, $readonly, $correctness, $appletoptions) {
@@ -195,9 +139,9 @@ class qtype_easyostructure_renderer extends qtype_renderer {
         }
         $name = 'EASYOSTRUCT'.$qa->get_slot();
         $appletid = 'easyostructure'.$qa->get_slot();
-	$question = $qa->get_question();
-	$stripped_answer_id="stripped_answer".$qa->get_slot();
-	$displaymode=$question->displaymode;
+        $question = $qa->get_question();
+        $strippedanswerid = "stripped_answer".$qa->get_slot();
+        $displaymode = $question->displaymode;
         $PAGE->requires->js_init_call('M.qtype_easyostructure.insert_easyostructure_applet',
                                       array($toreplaceid,
                                             $name,
@@ -207,10 +151,10 @@ class qtype_easyostructure_renderer extends qtype_renderer {
                                             $feedbackimage,
                                             $readonly,
                                             $appletoptions,
-					    $displaymode,
-					    $stripped_answer_id),		
-                                      false,
-                                      $jsmodule);
+                                            $displaymode,
+                                            $strippedanswerid),
+                                        false,
+                                        $jsmodule);
     }
 
     protected function fraction_for_last_response(question_attempt $qa) {
@@ -260,10 +204,7 @@ class qtype_easyostructure_renderer extends qtype_renderer {
             return '';
         }
 
-//        return get_string('correctansweris', 'qtype_easyostructure', s($answer->answer));
         return get_string('correctansweris', 'qtype_easyostructure', s($answer->answer));
-
-
     }
 
     protected function hidden_fields(question_attempt $qa) {
@@ -283,7 +224,6 @@ class qtype_easyostructure_renderer extends qtype_renderer {
         $attributes = array('type' => 'hidden',
                             'id' => str_replace(':', '_', $fieldname),
                             'class' => $varname,
-                            /*'name' => $fieldname,*/
                             'value' => $value);
         return html_writer::empty_tag('input', $attributes);
     }
