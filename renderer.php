@@ -122,6 +122,10 @@ class qtype_easyostructure_renderer extends qtype_renderer {
 
     protected function require_js($toreplaceid, question_attempt $qa, $readonly, $correctness, $appletoptions) {
         global $PAGE;
+
+        $marvinconfig = get_config('qtype_easyostructure_options');
+	$marvinpath = $marvinconfig->path;
+
         $jsmodule = array(
             'name'     => 'qtype_easyostructure',
             'fullpath' => '/question/type/easyostructure/module.js',
@@ -152,7 +156,8 @@ class qtype_easyostructure_renderer extends qtype_renderer {
                                             $readonly,
                                             $appletoptions,
                                             $displaymode,
-                                            $strippedanswerid),
+                                            $strippedanswerid,
+                                            $marvinpath),
                                         false,
                                         $jsmodule);
     }

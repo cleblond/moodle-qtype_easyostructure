@@ -4,7 +4,7 @@
 
 M.qtype_easyostructure={
     insert_easyostructure_applet : function(Y, toreplaceid, appletid, name, topnode,
-                                                                    appleturl, feedback, readonly, appletoptions, displaymode, stripped_answer_id){
+                                                                    appleturl, feedback, readonly, appletoptions, displaymode, stripped_answer_id, marvinpath){
         var javaparams = ['mrv', Y.one(topnode+' input.mol').get('value')];
         var easyostructureoptions = new Array();
 
@@ -19,7 +19,7 @@ M.qtype_easyostructure={
             javaparams[javaparams.length] = easyostructureoptions.join(',');
         }
         if (!this.show_java(toreplaceid, appletid, name, appleturl,
-                                                            420, 360, 'chemaxon.marvin.applet.JMViewLaunch', javaparams, displaymode, stripped_answer_id)) {
+                                                            420, 360, 'chemaxon.marvin.applet.JMViewLaunch', javaparams, displaymode, stripped_answer_id, marvinpath)) {
 
         this.show_error(Y, topnode);
 
@@ -54,7 +54,7 @@ M.qtype_easyostructure={
     doneie6focus : 0,
     doneie6focusapplets : 0,
  // Note: This method is also called from mod/audiorecorder
-    show_java : function (id, appletid, name, java, width, height, appletclass, javavars, displaymode, stripped_answer_id) {
+    show_java : function (id, appletid, name, java, width, height, appletclass, javavars, displaymode, stripped_answer_id, marvinpath) {
         if (this.javainstalled == -99 ) {
             this.javainstalled = PluginDetect.isMinVersion(
                 'Java', 1.5, 'plugindetect.getjavainfo.jar', [0, 2, 0]) == 1;
@@ -73,7 +73,7 @@ M.qtype_easyostructure={
         newApplet.tabIndex = -1; // Not directly tabbable
         newApplet.mayScript = true;     
 	newApplet.id = appletid;
-	newApplet.setAttribute('codebase','/marvin');
+	newApplet.setAttribute('codebase', marvinpath);
 
 	if (displaymode == '0'){
         newApplet.setAttribute('implicitH','hetero');

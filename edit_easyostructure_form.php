@@ -47,6 +47,10 @@ class qtype_easyostructure_edit_form extends qtype_shortanswer_edit_form {
         $mform->addElement('select', 'displaymode',
                 get_string('displaymodedescrip', 'qtype_easyostructure'), $menu);
 
+
+        $marvinconfig = get_config('qtype_easyostructure_options');
+	$marvinpath = $marvinconfig->path;
+
         // Add applet to page!
         $jsmodule = array(
             'name'     => 'qtype_easyostructure',
@@ -58,7 +62,7 @@ class qtype_easyostructure_edit_form extends qtype_shortanswer_edit_form {
         );
 
         $PAGE->requires->js_init_call('M.qtype_easyostructure.insert_applet',
-                                      array($CFG->wwwroot),
+                                      array($CFG->wwwroot, $marvinpath),
                                       true,
                                       $jsmodule);
 
@@ -92,6 +96,7 @@ class qtype_easyostructure_edit_form extends qtype_shortanswer_edit_form {
         question_bank::fraction_options());
 
         $this->add_interactive_settings();
+        $PAGE->requires->js_init_call('M.qtype_easyostructure.init_getanswerstring', array($CFG->version));
     }
 
     protected function get_per_answer_fields($mform, $label, $gradeoptions,

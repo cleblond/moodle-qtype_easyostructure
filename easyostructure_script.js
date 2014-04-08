@@ -1,51 +1,16 @@
-/*
-function getSmiles(textfieldid) {
-	document.getElementById(textfieldid).value = document.getElementById('EASYOSTRUCTURE' + textfieldid).smiles();
-}
-
-*/
-/*
-function getSmilesEdit(buttonname){
-    var buttonnumber= buttonname.slice(7,-1);
-	textfieldid = 'id_answer_' + buttonnumber;
-	document.getElementById(textfieldid).value = document.getElementById('JME').smiles();
-}
-*/
-
-/*
-///modified by crl for easyostructure sketch
-function getSmilesEdit(buttonname, format){
-    var buttonnumber = buttonname.slice(7,-1);
-    var s = document.MSketch.getMol(format);
-	s = local2unix(s); // Convert "\n" to local line separator
-	s = "\n" + s;
-	textfieldid = 'id_structure';
-	document.getElementById(textfieldid).value = s;
-}
-
-*/
-
-
-
-
-
-
-
 M.qtype_easyostructure={
     insert_structure_into_applet : function(){
-		var textfieldid = 'id_structure';
-		if(document.getElementById(textfieldid).value != '') {
-		
-		var s = document.getElementById(textfieldid).value;
-		document.MSketch.setMol(s, 'mrv');
-		}
+        var textfieldid = 'id_structure';
+        if(document.getElementById(textfieldid).value != '') {	
+            var s = document.getElementById(textfieldid).value;
+            document.MSketch.setMol(s, 'mrv');
+        }
 
 	},
 
-    insert_applet : function(Y, moodleurl){
+    insert_applet : function(Y, moodleurl, marvinpath){
 
 	var warningspan = document.getElementById('appletdiv');
-//        warningspan.innerHTML = '';
 
         var newApplet = document.createElement("applet");
         newApplet.code='chemaxon.marvin.applet.JMSketchLaunch';
@@ -56,7 +21,7 @@ M.qtype_easyostructure={
         newApplet.tabIndex = -1; // Not directly tabbable
         newApplet.mayScript = true;     
 	newApplet.id = 'MSketch';
-	newApplet.setAttribute('codebase','/marvin');
+	newApplet.setAttribute('codebase', marvinpath);
 
 	var param=document.createElement('param');
 	param.name='codebase_lookup';
@@ -96,7 +61,30 @@ M.qtype_easyostructure={
 
     }
 
-
-
-
 }
+
+
+M.qtype_easyostructure.init_getanswerstring = function(Y, moodle_version){
+    var handleSuccess = function(o) {
+
+    };
+    var handleFailure = function(o) {
+        /*failure handler code*/
+    };
+    var callback = {
+        success:handleSuccess,
+        failure:handleFailure
+    };
+    if (moodle_version >= 2012120300) { //Moodle 2.4 or higher
+        YAHOO = Y.YUI2;
+    }
+
+    Y.all(".id_insert").each(function(node) {
+    	node.on("click", function () {
+        var buttonid = node.getAttribute('id');
+        var s = document.MSketch.getMol('mrv');
+	textfieldid = 'id_structure';
+	document.getElementById(textfieldid).value = s;
+    	});
+    });
+};

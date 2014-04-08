@@ -37,10 +37,10 @@ $string['pluginname_link'] = 'question/type/easyostructure';
 $string['pluginnameadding'] = 'Adding a 2D/3D Structure Short Answer question';
 $string['pluginnameediting'] = 'Editing a 2D/3D Structure Short Answer question';
 $string['pluginnamesummary'] = 'Shortanswer question type that you can display 2D/3D structures or reactions.   Ask questions such as;<ul><li>Are the two chlorine atoms in the following structure cis or trans?</li><li>What is the name of the following reaction?</li><li>Does the following structure have R or S stereochemistry?</li></ul>';
-$string['easyostructure_options'] = 'Marvin Applet options';
+$string['easyostructure_options'] = 'Path to Marvin Applet installation';
 $string['enablejava'] = 'Tried but failed to load Marvinsketch editor. You have not got a JAVA runtime environment working in your browser. You will need one to attempt this question.';
 $string['enablejavaandjavascript'] = 'Loading Marvinsketch editor.... If this message does not get replaced by the Marvin editor then you have not got javascript and a JAVA runtime environment working in your browser.';
-$string['configeasyostructureoptions'] = 'Comma separated list of Marvinsketch applet options (see <a href="http://www.chemaxon.com">list of available options</a>)';
+$string['configeasyostructureoptions'] = 'The path of your marvin installation relative to your web root.  (e.g. If your moodle is installed at /var/www/moodle and you install your marvin at /var/www/marvin then you should use the default /marvin)';
 $string['filloutoneanswer'] = '<b><ul>
 <li>Use the Marvinsketch editor to create a structure as content for this question!</li>
 <li>The structure will be displayed in MarvinView!</li>
