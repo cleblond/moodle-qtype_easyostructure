@@ -43,5 +43,4 @@ representations for your chemistry content in MarvinSketch; line bond, normal
 (Lewis structure like) and 3D Ball and Stick.  Structures can be optimized in 2D and 3D
 and displayed as question data.  You can ask questions such as "Are the two chlorine groups 
 in the following structure cis or trans?"  or "What is the name of the following 
-reaction?" or Does this structure have R(E) or S(Z) stereochemistry?  
-
+reaction?" or Does this structure have R(E) or S(Z) stereochemistry?

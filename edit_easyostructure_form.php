@@ -47,9 +47,8 @@ class qtype_easyostructure_edit_form extends qtype_shortanswer_edit_form {
         $mform->addElement('select', 'displaymode',
                 get_string('displaymodedescrip', 'qtype_easyostructure'), $menu);
 
-
         $marvinconfig = get_config('qtype_easyostructure_options');
-	$marvinpath = $marvinconfig->path;
+        $marvinpath = $marvinconfig->path;
 
         // Add applet to page!
         $jsmodule = array(

@@ -124,7 +124,7 @@ class qtype_easyostructure_renderer extends qtype_renderer {
         global $PAGE;
 
         $marvinconfig = get_config('qtype_easyostructure_options');
-	$marvinpath = $marvinconfig->path;
+        $marvinpath = $marvinconfig->path;
 
         $jsmodule = array(
             'name'     => 'qtype_easyostructure',
