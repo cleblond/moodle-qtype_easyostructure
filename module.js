@@ -93,7 +93,6 @@ M.qtype_easyostructure={
 	newApplet.setAttribute('animate','all');
 	newApplet.setAttribute('animFPS','20');
 
-
 	}
 
         javavars[javavars.length] = 'focushackid';
