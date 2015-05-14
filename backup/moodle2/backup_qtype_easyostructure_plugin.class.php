@@ -46,7 +46,7 @@ class backup_qtype_easyostructure_plugin extends backup_qtype_plugin {
 
         // Now create the qtype own structures.
         $easyostructure = new backup_nested_element('easyostructure', array('id'), array(
-            'answers'));
+            'answers', 'structure'));
 
         // Now the own qtype tree.
         $pluginwrapper->add_child($easyostructure);
